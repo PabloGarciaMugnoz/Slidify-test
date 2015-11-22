@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>First Slidify</title>
+  <title>Shiny app</title>
   <meta charset="utf-8">
-  <meta name="description" content="First Slidify">
+  <meta name="description" content="Shiny app">
   <meta name="author" content="Pablo Garcia">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,9 +32,9 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>First Slidify</h1>
-    <h2>testing</h2>
-    <p>Pablo Garcia<br/>learning</p>
+    <h1>Shiny app</h1>
+    <h2>Gas consumption model</h2>
+    <p>Pablo Garcia<br/>Coursera student</p>
   </hgroup>
   <article></article>  
 </slide>
@@ -43,14 +43,29 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Read-And-Delete</h2>
+    <h2>Introduction</h2>
   </hgroup>
   <article data-timings="">
-    <ol>
-<li>Edit YAML front matter</li>
-<li>Write using R Markdown</li>
-<li>Use an empty line followed by three dashes to separate slides!</li>
-</ol>
+    <p>The goal of this model is computing a gas consumption estimate using only two
+variables, one qualitative and one quantitative.
+The shiny app computes a linear model based on these variables.
+The model is computed with data from the mtcars dataset fron the datasets R package.</p>
+
+<p>Quantitative:</p>
+
+<ul>
+<li>Weight (lb/1000)</li>
+<li>Displacement (cu.in.)</li>
+<li>Gross horsepower</li>
+</ul>
+
+<p>Qualitative:</p>
+
+<ul>
+<li>Number of cylinders</li>
+<li>Transmission type</li>
+<li>Number of forward gears</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -58,10 +73,53 @@
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Slide 2</h2>
+    <h2>Model selection</h2>
   </hgroup>
   <article data-timings="">
-    
+    <p>Chossing two mentioned variables and the degree of the polynom built with 
+quantitive variable a linear model is computed. Lets assume weight, cylinders and quadratic model are selected. The model will perform the following computation:</p>
+
+<pre><code class="r">modelFit &lt;- lm( mpg ~ as.factor(cyl) + poly(wt, degree = 2), data = mtcars)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Visualization</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A plot of selected model is included to help choosing between different model based on exploratory analysis.</p>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Input values and results</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Finally inputing the values for selected variables will compute gas consumption
+estimate and also adjusted R-squared to assess goodness of computed model. </p>
+
+<pre><code class="r">format(predict(modelFit, newdata = data.frame(wt = 2, cyl = &quot;6&quot;)), digits = 1, nsmall = 2)
+</code></pre>
+
+<pre><code>##       1 
+## &quot;25.24&quot;
+</code></pre>
+
+<pre><code class="r">format(summary(modelFit)$adj.r.squared, digits =1, nsmall = 3)
+</code></pre>
+
+<pre><code>## [1] &quot;0.837&quot;
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -72,14 +130,26 @@
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Read-And-Delete'>
+        data-slide=1 title='Introduction'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Slide 2'>
+        data-slide=2 title='Model selection'>
          2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Visualization'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Input values and results'>
+         4
       </a>
     </li>
   </ul>
